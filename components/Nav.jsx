@@ -7,7 +7,7 @@ import Image from 'next/image'
 import { signIn, signOut, useSession, getProviders } from 'next-auth/react'
 
 const Nav = () => {
-  const [ isUserLoggedIn, setIsUserLoggedIn ] = useState(true);
+  const { data: session } = useSession();
   const [ providers, setProviders ] = useState(null);
   const [ toggleDropdown, setToggleDropDown ] = useState(false);
 
@@ -17,7 +17,9 @@ const Nav = () => {
 
       setProviders(response);
     }
-  },[]);
+    fetchProviders();
+  },[]); 
+  console.log()
   return (
     <nav className='flex-between w-full mb-36 pt-12'>
       <Link href={'/'} className='flex gap-2 flex-center'>
@@ -32,14 +34,14 @@ const Nav = () => {
 
       {/* Desktop navigation */}
       <div className= 'sm:flex hidden' >
-      {isUserLoggedIn?(
+      {session?.user?(
         <div className='flex gap-3 md:gap-5'>
-          <Link href={'/createPost'} className='black_btn'>create Post
+          <Link href={'/create-prompt'} className='black_btn'>create Prompt
           </Link>
           <button onClick={signOut} className='outline_btn'>Sign Out</button>
           <Link href={'/profile'}>
             <Image 
-              src={'/assets/images/logo.svg'}
+              src={session?.user.image}
               width={37}
               height={37}
               alt='Profile Pic'
@@ -51,7 +53,7 @@ const Nav = () => {
         <>
           {
             providers&&
-            Object.values(providers).map((provider) => {
+            Object.values(providers).map((provider) => (
               <button
                 key={provider.name}
                 onClick={() => signIn(provider.id)}
@@ -59,22 +61,23 @@ const Nav = () => {
               >
                 Sign In
               </button>
-            })
+            ))
           }
         </>
       )}
       </div>
-
+      
       {/* Mobile Navigation */}
       <div className='sm:hidden flex relative'>  
           {
-            isUserLoggedIn?(
+            session?.user?(
               <div className='flex'>
                   <Image 
-                    src={'/assets/images/logo.svg'}
+                    src={session?.user.image}
                     width={37}
                     height={37}
                     onClick={() =>setToggleDropDown((prev) => !prev)}
+                    className='rounded-md'
                   />
                   {
                     toggleDropdown&&(
@@ -111,7 +114,7 @@ const Nav = () => {
             <>
               {
                 providers&&
-                Object.values(providers.map((provider) =>{
+                Object.values(providers).map((provider) =>(
                   <button
                     key={provider.name}
                     onClick={() => signIn(provider.id)}
@@ -119,7 +122,7 @@ const Nav = () => {
                   >
                     Sign In
                   </button>
-                }))
+                ))
               }
             </>
           }

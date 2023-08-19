@@ -32,3 +32,13 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+
+
+note of interacting with database
+// the models object is provided by the mongoose library and stores all the registered models
+// if a model named "User" already exists in the models object it assigns that existing model to the "user" variable
+// this prevents redefing the model and ensures that existing model is reusesd.
+
+// if a model named "User" does not exists in the "models" object, the models function from the mongoose is called to create a new model
+// the newly created new model is then assigned to the "User" variable
