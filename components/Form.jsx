@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import Link from 'next/link'
 
 const Form = ({ type, post, setPost, submitting, handleSubmit }) => {
+
   return (
    <div className='w-full max-w-full flex-start flex-col'>
       <h1 className='head_text text-left'>
@@ -40,12 +42,25 @@ const Form = ({ type, post, setPost, submitting, handleSubmit }) => {
               ...post,
               tag: e.target.value
             })}
-            placeholder='Write your prompt here...'
+            placeholder='#tag '
             required
-            className='form_textarea'
+            className='form_input'
           >
           </textarea>
         </label>
+
+        <div className='flex-end mx-3 mb-5 gap-4'>
+          <Link href='/' className='text-gray-500 text-sm'>
+            Cancel
+          </Link>
+          <button 
+            className='px-5 py-1.5 bg-primary-orange rounded-full text-white text-sm'
+            type='submit'
+            disabled={submitting}
+          >
+            {submitting?`${type} ...`: type}
+          </button>
+        </div>
       </form>
    </div>
   )
