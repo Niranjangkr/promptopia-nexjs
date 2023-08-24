@@ -3,7 +3,7 @@ import { connectDB } from "@utils/database";
 
 export async function POST( req ) {
   const { userId, prompt, tag } = await req.json();
-  console.log(userId, prompt, tag)
+  
   try {
     await connectDB();
     const newPrompt = new Prompt({

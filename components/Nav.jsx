@@ -78,6 +78,7 @@ const Nav = () => {
                     height={37}
                     onClick={() =>setToggleDropDown((prev) => !prev)}
                     className='rounded-md'
+                    alt='profile_pic'
                   />
                   {
                     toggleDropdown&&(
