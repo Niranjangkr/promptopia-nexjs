@@ -18,6 +18,6 @@ const UserSchema = new Schema({
 })
 
 // check at bottom of reamdme for models creation and assignment procss in the User variable
-const User = models.User || model("User",UserSchema);
+const User = models.User || new model("User",UserSchema);
 
 export default User;

@@ -17,9 +17,9 @@ const handler = NextAuth({
             session.id = sessionUser._id.toString(); 
             return session;
         },
-        async signIn({ profile }){
+        async signIn({account, profile, user, credential }){
             try {
-                await connectDB();
+                await connectDB();  
                 // check if user exist
                 const UserExists = await User.findOne({email:profile.email});
              
