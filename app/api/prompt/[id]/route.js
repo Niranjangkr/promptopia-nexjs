@@ -6,7 +6,7 @@ import { connectDB } from "@utils/database";
 export async function GET(request, { params }){
     try {
         await connectDB()
-        const prompt = await Prompt.findById({_id: params.id}).populate('creator')
+        const prompt = await Prompt.findById(params.id).populate('creator')
         if(!prompt){
             return new Response('Prompt not found', {status: 404})
         }
@@ -22,7 +22,7 @@ export async function PATCH(request, { params }){
     const { prompt, tag } = await request.json();
     try {
         await connectDB()
-        const existingPrompt = await Prompt.findById({_id: params.id});
+        const existingPrompt = await Prompt.findById(params.id);
         if(!existingPrompt){
             return new Response("Prompt does not exist", { status: 404 })
         } 
@@ -40,7 +40,7 @@ export async function PATCH(request, { params }){
 export async function DELETE(request, { params }){
     try {
         await connectDB()
-        await Prompt.findByIdAndRemove({_id: params.id});
+        await Prompt.findByIdAndRemove(params.id);
         return new Response("Deleted successfully", {status: 200})
     } catch (error) {
         return new Response("Something went wrong cannot delete, try again", {status: 500})
