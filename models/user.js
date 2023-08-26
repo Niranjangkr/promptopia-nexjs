@@ -21,5 +21,4 @@ const UserSchema = new Schema({
 // hygenic check giving problem while deploying showing error :>> Schema hasn't been registered for model "User"
 // be sure to add the database name in the mongodb_uri
 const User = models.User || model("User", UserSchema);
-
 export default User;
