@@ -1,4 +1,5 @@
 import { Schema, model, models } from "mongoose";
+import mongoose from "mongoose";
 
 const UserSchema = new Schema({
     email: {
@@ -18,6 +19,8 @@ const UserSchema = new Schema({
 })
 
 // check at bottom of reamdme for models creation and assignment procss in the User variable
-const User = models.User || model("User", UserSchema);
+// hygenic check giving problem while deploying showing error :>> Schema hasn't been registered for model "User"
+let Mod = mongoose.model("User", UserSchema)
+const User = models.User || Mod;
 
 export default User;    
