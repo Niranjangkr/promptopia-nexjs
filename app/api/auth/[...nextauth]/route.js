@@ -1,12 +1,12 @@
 import NextAuth from "next-auth/next";
-import GoogleProvoder from 'next-auth/providers/google'
+import GoogleProvider from 'next-auth/providers/google'
 import { connectDB } from "@utils/database";
  // serverless --> Lambda functtion => means it opens up only when it gets called 
 import User from "@models/user";
 
 const handler = NextAuth({
     providers: [
-        GoogleProvoder({
+        GoogleProvider({
             clientId:process.env.GOOGLE_ID,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET,
         }),
@@ -17,9 +17,9 @@ const handler = NextAuth({
             session.id = sessionUser._id.toString(); 
             return session;
         },
-        async signIn({account, profile, user, credential }){
+        async signIn({ profile }){
             try {
-                await connectDB();  
+                await connectDB();
                 // check if user exist
                 const UserExists = await User.findOne({email:profile.email});
              
