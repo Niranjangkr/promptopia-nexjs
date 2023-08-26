@@ -1,6 +1,6 @@
 import Prompt from "@models/prompt";
 import { connectDB } from "@utils/database";
-
+    
 export async function GET (request){
     try {
         await connectDB();

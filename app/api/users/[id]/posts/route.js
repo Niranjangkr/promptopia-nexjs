@@ -3,7 +3,6 @@ import { connectDB } from "@utils/database";
 
 export async function GET (request, { params }){
     try {
-        console.log("jeloo world",params.id)
         await connectDB();
         const prompts = await Prompt.find({
             creator: params.id
